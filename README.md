@@ -96,8 +96,8 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 ### Built With
 
 This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+* [Vue](https://jquery.com)
 * [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
 * [Laravel](https://laravel.com)
 
 
@@ -111,9 +111,9 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
+* Vue
   ```sh
-  npm install npm@latest -g
+  yarn global add @vue/cli
   ```
 
 ### Installation
