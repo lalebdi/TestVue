@@ -28,7 +28,7 @@ export default {
     'product-card' : ProductCard
   },
   computed: {
-    ...mapGetters(["products"])
+    ...mapGetters(["products", "displayProducts"])
   },
   mounted(){
     this.fetchData();
@@ -36,7 +36,7 @@ export default {
   data(){
     return {
       // products: [],
-      displayProducts: [],
+      // displayProducts: [],
       currentPage: 1,
       rows: 1,
       perPage: 3
@@ -48,13 +48,14 @@ export default {
       console.log(this.$store.getters.products);
       // const res = await fetch("products.json")
       // const val = await res.json();
-      this.displayProducts = this.products.slice(0, 3);
+      // this.displayProducts = this.products.slice(0, 3);
       this.rows = this.products.length;
       console.log("Home",this.products)
     },
     paginate(currentPage){
-      const start = (currentPage - 1) * this.perPage;
-      this.displayProducts = this.products.slice(start, start + 3);
+      // const start = (currentPage - 1) * this.perPage;
+      // this.displayProducts = this.products.slice(start, start + 3);
+      this.$store.dispatch("paginate", { currentPage, perPage: this.perPage});
     }
   }
 }
