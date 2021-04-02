@@ -20,18 +20,22 @@
 // @ is an alias to /src
 // import ProductCard from '@/components/ProductCard.vue'
 import ProductCard from '../components/ProductCard.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
     'product-card' : ProductCard
   },
+  computed: {
+    ...mapGetters(["products"])
+  },
   mounted(){
     this.fetchData();
   },
   data(){
     return {
-      products: [],
+      // products: [],
       displayProducts: [],
       currentPage: 1,
       rows: 1,
@@ -40,13 +44,13 @@ export default {
   },
   methods: {
     async fetchData(){
-      this.$store.dispatch("fetchProducts")
+      await this.$store.dispatch("fetchProducts")
       console.log(this.$store.getters.products);
-      const res = await fetch("products.json")
-      const val = await res.json();
-      this.products = val;
-      this.displayProducts = val.slice(0, 3);
+      // const res = await fetch("products.json")
+      // const val = await res.json();
+      this.displayProducts = this.products.slice(0, 3);
       this.rows = this.products.length;
+      console.log("Home",this.products)
     },
     paginate(currentPage){
       const start = (currentPage - 1) * this.perPage;
