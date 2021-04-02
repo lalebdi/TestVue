@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-col>
-            <b-card title="This is a card" img-src="https://unsplash.com/photos/M0WbGFRTXqU" img-alt="Fire safety Product" img-top tag="article" style="max-width:20rem" class="mb-2" footer="Card Footer">
+            <b-card :title="name" img-src="https://unsplash.com/photos/M0WbGFRTXqU" img-alt="Fire safety Product" img-top tag="article" style="max-width:20rem" class="mb-2" footer="Card Footer">
             <b-card-text>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, minus?
             </b-card-text>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-
+    props: ['name']
 }
 </script>
 
