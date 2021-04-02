@@ -33,6 +33,7 @@ export default new Vuex.Store({
     async fetchProducts({ dispatch, commit }){
       const myJson = await dispatch("fetchData")
       commit("SET_PRODUCTS", myJson);
+      commit("SET_ROWS", myJson.length);
       const displayProducts = myJson.slice(0, 3);
       commit("SET_DISPLAY_PRODUCTS", displayProducts)
       commit("SET_ROWS", myJson.length);
