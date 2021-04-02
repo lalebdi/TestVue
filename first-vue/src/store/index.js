@@ -8,6 +8,7 @@ export default new Vuex.Store({
     products: [],
     displayProducts: [],
     rows: 1,
+    showSpinner: false
   },
   mutations: {
     SET_PRODUCTS(state, products){
@@ -18,15 +19,20 @@ export default new Vuex.Store({
     },
     SET_DISPLAY_PRODUCTS(state, displayProducts){
       state.displayProducts = displayProducts;
+    },
+    SET_SPINNER(state, spinner){
+      state.showSpinner = spinner;
     }
   },
   actions: {
-    async fetchData(){
+    async fetchData({ commit }){
+      commit("SET_SPINNER", true)
       return new Promise(resolve => {
         setTimeout(async () =>{
           const res = await fetch("products.json");
           const val = await res.json();
           resolve(val);
+          commit("SET_SPINNER", false)
         }, 1000);
       });
     },
@@ -50,7 +56,7 @@ export default new Vuex.Store({
     },
     async search({ dispatch }, { text }){
       const myJson = await this.dispatch("fetchData")
-      const values = myJson.filter( val => val.name.toLowerCase().includes(text.toLowerCase()))
+      const values = myJson.filter( val => val.name.toLowerCase().includes(text.toLowerCase())) // change this to a server side search.
       dispatch("updatePagination", { myJson: values, currentPage: 1, perPage: 3 })
     }
   },
@@ -63,6 +69,9 @@ export default new Vuex.Store({
     },
     rows(state){
       return state.rows;
+    },
+    showSpinner(state){
+      return state.showSpinner;
     },
   },
   modules: {},
