@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div class="page" v-if="showSpinner">
+          <b-spinner variant="primary" class="spinner" key="primary"></b-spinner>
+    </div>
     <div id="nav">
       <top-header></top-header>
       <!-- <router-link to="/">Home</router-link> -->
@@ -12,7 +15,12 @@
 
 <script>
 import TopHeader from './components/TopHeader.vue'
+import { mapGetters } from 'vuex'
+
 export default {
+      computed: {
+        ...mapGetters(["showSpinner"])
+    },
   components: {
     'top-header': TopHeader 
   }
@@ -40,5 +48,18 @@ export default {
       color: #42b983;
     }
   }
+}
+
+.page {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 25;
+  width: 100%;
+  height: 100%;
+}
+.spinner {
+  z-index: 26;
+  position: relative;
+  top: 50%;
 }
 </style>
