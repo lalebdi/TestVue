@@ -1,10 +1,7 @@
 <template>
   <b-container>
     <b-row align-v="center" >
-      <product-card></product-card>
-      <product-card></product-card>
-      <product-card></product-card>
-      <product-card></product-card>
+      <product-card v-for="product in products" :key="product.id" :name="product.name"></product-card>
     </b-row>
   </b-container>
 </template>
@@ -19,5 +16,20 @@ export default {
   components: {
     'product-card' : ProductCard
   },
+  mounted(){
+    this.fetchData();
+  },
+  data(){
+    return {
+      products: []
+    }
+  },
+  methods: {
+    async fetchData(){
+      const res = await fetch("products.json")
+      const val = await res.json();
+      this.products = val;
+    }
+  }
 }
 </script>
