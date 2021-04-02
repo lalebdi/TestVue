@@ -42,6 +42,16 @@ export default new Vuex.Store({
       const start = (currentPage - 1) * perPage;
       const products = state.products.slice(start, start + 3);
       commit("SET_DISPLAY_PRODUCTS", products)
+    },
+    updatePagination({ commit, dispatch }, { myJson, currentPage, perPage }){
+      commit("SET_PRODUCTS", myJson);
+      commit("SET_ROWS", myJson.length);
+      dispatch("paginate", { currentPage, perPage })
+    },
+    async search({ dispatch }, { text }){
+      const myJson = await this.dispatch("fetchData")
+      const values = myJson.filter( val => val.name.toLowerCase().includes(text.toLowerCase()))
+      dispatch("updatePagination", { myJson: values, currentPage: 1, perPage: 3 })
     }
   },
   getters: {
