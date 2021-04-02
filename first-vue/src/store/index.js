@@ -33,7 +33,14 @@ export default new Vuex.Store({
     async fetchProducts({ dispatch, commit }){
       const myJson = await dispatch("fetchData")
       commit("SET_PRODUCTS", myJson);
+      const displayProducts = myJson.slice(0, 3);
+      commit("SET_DISPLAY_PRODUCTS", displayProducts)
       commit("SET_ROWS", myJson.length);
+    },
+    async paginate({ commit, state }, { currentPage, perPage }){
+      const start = (currentPage - 1) * perPage;
+      const products = state.products.slice(start, start + 3);
+      commit("SET_DISPLAY_PRODUCTS", products)
     }
   },
   getters: {
