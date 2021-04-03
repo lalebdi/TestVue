@@ -42,7 +42,7 @@ export default new Vuex.Store({
         }).catch(function (error) {
           console.error(error);
         })
-        // commit("SET_SPINNER", false);
+        commit("SET_SPINNER", false);
       });
     },
     async fetchProducts({ dispatch, commit }){
