@@ -1,7 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
+
+const options = {
+  method: 'GET',
+  url: 'https://api.stifirestop.com/products',
+  params: {page: '1', limit: '10'}
+};
 
 export default new Vuex.Store({
   state: {
@@ -28,12 +35,14 @@ export default new Vuex.Store({
     async fetchData({ commit }){
       commit("SET_SPINNER", true)
       return new Promise(resolve => {
-        setTimeout(async () =>{
-          const res = await fetch("products.json");
-          const val = await res.json();
-          resolve(val);
-          commit("SET_SPINNER", false)
-        }, 1000);
+        axios.request(options).then(function (response) {
+          console.log("response= ",response.data.data);
+          const val = response.data.data;
+          resolve(val)
+        }).catch(function (error) {
+          console.error(error);
+        })
+        // commit("SET_SPINNER", false);
       });
     },
     async fetchProducts({ dispatch, commit }){
